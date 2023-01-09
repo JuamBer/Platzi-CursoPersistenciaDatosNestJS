@@ -68,12 +68,12 @@ export class UsersService {
     return true;
   }
 
-  getOrderByUser(id: number): Order {
-    const user = this.findOne(id);
-    return {
-      date: new Date(),
-      user,
-      products: this.productsService.findAll(),
-    };
-  }
+  // getOrderByUser(id: number): Order {
+  //   const user = this.findOne(id);
+  //   return {
+  //     date: new Date(),
+  //     user,
+  //     products: this.productsService.findAll(),
+  //   };
+  // }
 }
