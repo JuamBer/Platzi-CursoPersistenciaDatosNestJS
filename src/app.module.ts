@@ -30,19 +30,7 @@ import config from './config';
     ProductsModule,
     DatabaseModule,
   ],
-  controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: 'TASKS',
-      useFactory: async (http: HttpService) => {
-        const tasks = await http
-          .get('https://jsonplaceholder.typicode.com/todos')
-          .toPromise();
-        return tasks.data;
-      },
-      inject: [HttpService],
-    },
-  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

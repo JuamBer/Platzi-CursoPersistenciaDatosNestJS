@@ -1,6 +1,31 @@
-export class User {
+import { AuditFields } from 'src/common/audit-fields';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+
+import { Customer } from './customer.entity';
+
+@Entity()
+export class User extends AuditFields {
+  @PrimaryColumn()
   id: number;
+
+  @Column({ type: 'varchar', length: 255 })
   email: string;
-  password: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  password: string; // encript
+
+  @Column({ type: 'varchar', length: 100 })
   role: string;
+
+  @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
+  @JoinColumn()
+  customer: Customer;
 }
