@@ -21,7 +21,7 @@ import config from '../config';
           username: 'root',
           password: '123456',
           database: 'my_db',
-          synchronize: true,
+          synchronize: false,
           autoLoadEntities: true,
         };
       },

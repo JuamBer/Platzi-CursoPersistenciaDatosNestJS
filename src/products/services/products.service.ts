@@ -8,46 +8,32 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectRepository(Product) private productRepository: Repository<Product>,
+    @InjectRepository(Product) private repository: Repository<Product>,
   ) {}
   findAll() {
-    return this.productRepository.find();
+    return this.repository.find();
   }
 
-  findOne(id: number) {
-    const product = this.productRepository.findOne(id);
+  async findOne(id: number) {
+    const product = await this.repository.findOne(id);
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
     return product;
   }
 
-  // create(data: CreateProductDto) {
-  //   this.counterId = this.counterId + 1;
-  //   const newProduct = {
-  //     id: this.counterId,
-  //     ...data,
-  //   };
-  //   this.products.push(newProduct);
-  //   return newProduct;
-  // }
+  create(data: CreateProductDto) {
+    const entity = this.repository.create(data);
+    return this.repository.save(entity);
+  }
 
-  // update(id: number, changes: UpdateProductDto) {
-  //   const product = this.findOne(id);
-  //   const index = this.products.findIndex((item) => item.id === id);
-  //   this.products[index] = {
-  //     ...product,
-  //     ...changes,
-  //   };
-  //   return this.products[index];
-  // }
+  async update(id: number, changes: UpdateProductDto) {
+    const entity = await this.repository.findOne(id);
+    this.repository.merge(entity, changes);
+    return this.repository.save(entity);
+  }
 
-  // remove(id: number) {
-  //   const index = this.products.findIndex((item) => item.id === id);
-  //   if (index === -1) {
-  //     throw new NotFoundException(`Product #${id} not found`);
-  //   }
-  //   this.products.splice(index, 1);
-  //   return true;
-  // }
+  remove(id: number) {
+    return this.repository.delete(id);
+  }
 }
