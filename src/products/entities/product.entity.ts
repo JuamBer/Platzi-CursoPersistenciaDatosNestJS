@@ -8,12 +8,14 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  Index,
 } from 'typeorm';
 
 import { Brand } from './brand.entity';
 import { Category } from './category.entity';
 
 @Entity()
+@Index(['price', 'stock'])
 export class Product extends AuditFields {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,6 +26,7 @@ export class Product extends AuditFields {
   @Column({ type: 'text' })
   description: string;
 
+  @Index()
   @Column({ type: 'int' })
   price: number;
 
