@@ -1,6 +1,8 @@
+import { Exclude } from 'class-transformer';
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export class AuditFields {
+  @Exclude()
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamptz',
@@ -8,6 +10,7 @@ export class AuditFields {
   })
   createAt: Date;
 
+  @Exclude()
   @UpdateDateColumn({
     name: 'updated_at',
     type: 'timestamptz',
